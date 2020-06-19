@@ -47,6 +47,7 @@ int main(int argc, char** argv)
     int numThreadTosses;
 
     int    count = 0;  // The number of points in the circle
+    int    final_count;
     double pi;
 
     double start, end;
@@ -63,14 +64,14 @@ int main(int argc, char** argv)
 		count = Toss(numThreadTosses);
     }
 
-    MPI_Reduce(&count, &count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&final_count, &count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
     MPI_Barrier(MPI_COMM_WORLD);
 	end = MPI_Wtime();
 
     if (!world_rank)
     {
         // Approximate pi
-        pi = (double)count / niter * 4;
+        pi = (double)final_count / niter * 4;
         printf("Pi: %f\n", pi);
         printf("Time: %f seconds\n", end - start);
     }
