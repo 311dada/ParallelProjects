@@ -89,6 +89,7 @@ int main(int argc, char *argv[]) {
     }
     
     printf("time: %f seconds\n", end - start);
+    free(arr);
 
     return 0;
 } 
