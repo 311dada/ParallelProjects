@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#define INT_MAX 2147483647
 
 
 int* allocate_array(int n, int MAX)
@@ -48,14 +49,14 @@ void merge(int *arr, int n, int cnt)
     int cur_block_min_index;
     while (cur_global_index < n)
     {
-        cur_block_minm = INT64_MAX;
+        cur_block_minm = INT_MAX;
         for (int j = 0; j < block_num; j++)
         {
-            int cur_block_global_index = cnt * (j - 1) + index[j];
+            int cur_block_global_index = cnt * j + index[j];
             if (index[j] < cnt && arr[cur_block_global_index] < cur_block_minm)
             {
                 cur_block_minm = arr[cur_block_global_index];
-                cur_block_min_index = j
+                cur_block_min_index = j;
             }
         }
         index[cur_block_min_index]++;

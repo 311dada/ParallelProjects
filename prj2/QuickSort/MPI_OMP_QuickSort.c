@@ -84,7 +84,8 @@ int main(int argc, char *argv[]) {
 
     start = MPI_Wtime();
     
-    MPI_Scatter(arr, cnt, MPI_INT, recv, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Scatter(arr, cnt, MPI_INT, recv, cnt, MPI_INT, 0, MPI_COMM_WORLD);
+
 
     int to_display = 0;
 
@@ -100,15 +101,17 @@ int main(int argc, char *argv[]) {
         }
     }
     
+    
     #pragma omp parallel
     {
-        #pragma omp single nowait
+        #pragma omp single nowait 
         {
-            qs(recv, 0, cnt);
+            qs(recv, 0, cnt - 1);
         }
     }
+
     
-    MPI_Gather(recv, cnt, MPI_INT, arr, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Gather(recv, cnt, MPI_INT, arr, cnt, MPI_INT, 0, MPI_COMM_WORLD);
     free(recv);
 
     if (!world_rank)
