@@ -31,6 +31,13 @@ void qs(int *v, int first, int last)
         }
 
         // Recursively
+        #pragma omp parallel sections
+        {
+            #pragma omp section
+            qs(v, first, l - 1);
+            #pragma omp section
+            qs(v, l, last);
+        }
         // #pragma omp task
         // {
         //     qs(v, first, l - 1);
@@ -40,17 +47,7 @@ void qs(int *v, int first, int last)
         // {
         //     qs(v, l, last);
         // }
-        #pragma omp sections
-        {
-            #pragma omp section
-            {
-                qs(v, first, l - 1);
-            }
-            #pragma omp section
-            {
-                qs(v, l, last);
-            }
-        }
+        
 
 
    }
