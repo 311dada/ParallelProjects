@@ -31,25 +31,10 @@ void qs(int *v, int first, int last)
         }
 
         // Recursively
-        #pragma omp parallel sections
-        {
-            #pragma omp section
-            qs(v, first, l - 1);
-            #pragma omp section
-            qs(v, l, last);
-        }
-        // #pragma omp task
-        // {
-        //     qs(v, first, l - 1);
-        // }
-            
-        // #pragma omp task
-        // {
-        //     qs(v, l, last);
-        // }
-        
-
-
+        #pragma omp task
+        qs(v, first, l - 1);
+        #pragma omp task
+        qs(v, l, last);
    }
 }
 
@@ -88,7 +73,13 @@ int main(int argc, char *argv[]) {
 
     double start, end;
     start = omp_get_wtime();
-    qs(arr, 0, n);
+    #pragma omp parallel
+    {
+        #pragma omp single nowait
+        {
+            qs(arr, 0, n);
+        }
+    }
     end = omp_get_wtime();
 
     if (to_display)
