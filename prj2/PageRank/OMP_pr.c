@@ -16,20 +16,9 @@ int main(int argc, char** argv)
 
     graph *g;
     int threadnums;
-    if (strcmp(argv[1], "random") == 0)
-    {
-        int node_num;
-        node_num = atoi(argv[2]);
-        threadnums = atoi(argv[3]);
-        g = init_graph(node_num);
-        save_graph(g, "graph.txt");
-    }
 
-    else
-    {
-        g = read_graph("graph.txt");
-        threadnums = atoi(argv[1]);
-    }
+    g = read_graph("graph.txt");
+    threadnums = atoi(argv[1]);
 
 
     // Pagerank
@@ -53,7 +42,7 @@ int main(int argc, char** argv)
     for (int i = 0; i < ITER; i++)
     {
         // For each iteration
-        #pragma omp parallel for private(sum)
+        #pragma omp parallel for private(sum, parent)
         for (int j = 0; j < g->node_num; j++)
         {
             sum = 0;
@@ -77,7 +66,10 @@ int main(int argc, char** argv)
     end = omp_get_wtime();
     // Output
     FILE *out;
-    out = fopen("result.txt", "w");
+    char* s;
+    s = (char*)malloc(100);
+    sprintf(s, "result_with_%d_threads.txt", threadnums);
+    out = fopen(s, "w");
     for (int i = 0; i < g->node_num; i++)
     {
         fprintf(out, "node %d: %.4f\n", i, ranks[i]);
@@ -85,6 +77,7 @@ int main(int argc, char** argv)
     fclose(out);
     free(ranks);
     free(pre_ranks);
+    free(s);
 
     printf("time: %f seconds\n", end-start);
     return 0;
