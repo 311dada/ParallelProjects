@@ -12,3 +12,4 @@ MPI_OMP_PR: MPI_OMP_pr.c pr_util.c
 clean:
 	rm -rf OMP_PR
 	rm -rf MPI_OMP_PR
+	rm - rf GRAPH
