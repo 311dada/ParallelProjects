@@ -92,3 +92,18 @@ void assign_matrix(int **A, int **B, int n)
         }
     }
 }
+
+void allocate_gen_matrix(int ***a, int h, int w)
+{
+    int i;
+    int j;
+    int *storage;
+    storage = (int*)malloc(h * w * sizeof(int));
+    memset(storage, 0, sizeof(int) * h * w);
+
+    *a = (int**)malloc(h * sizeof(int*));
+    for (i = 0; i < h; i++)
+    {
+        (*a)[i] = storage + i * w;
+    }
+}
