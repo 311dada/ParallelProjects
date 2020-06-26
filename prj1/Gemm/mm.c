@@ -1,28 +1,19 @@
 #include "matrix_gen.h"
 #include "mm.h"
-#include <mpi.h>
 #include <stdio.h>
 #include <math.h>
 
-int **matrix_multiplication(int **A, int **B, int p = 64)
+void matrix_multiplication(int **A, int **B, int **C, int s)
 {
-    int **C;
-    allocate_matrix(&C, sizeof(int));
 
-    // TODO: implementation
-    // Initialize the MPI environment
-    MPI_Init(NULL, NULL);
-
-    // Get the number of processes
-    int world_size;
-    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
-
-    int world_rank;
-    MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
-
-    
-
-    return C;
+    for (int i = 0; i < s; i++)
+    {
+        for (int j = 0; j < s; j++)
+        {
+            for (int k = 0; k < s; k++)
+                C[i][j] += A[i][k] * B[k][j];
+        }
+    }
 }
 
 void matrix_display(int **A)
