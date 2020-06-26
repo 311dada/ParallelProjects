@@ -20,25 +20,44 @@ int main(int argc, char** argv)
     int*   send_data;
     int*   recv_data;
     double time;
+    int num;
+    num = atoi(argv[1]);
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < num; i++) {
         data_size *= 10;
         send_data = (int*)malloc(sizeof(int) * data_size);
         recv_data = (int*)malloc(sizeof(int) * data_size * world_size);
         MPI_Barrier(MPI_COMM_WORLD);
         time = -MPI_Wtime();
-        my_MPI_ALLGATHER(send_data, data_size, MPI_INT, recv_data, data_size,
+        my_MPI_ALLGATHER1(send_data, data_size, MPI_INT, recv_data, data_size,
                       MPI_INT, MPI_COMM_WORLD);
         MPI_Barrier(MPI_COMM_WORLD);
         time += MPI_Wtime();
         if (world_rank == 0)
-            printf("My implementation (data size = %d): %f\n", data_size, time);
+            printf("My implementation 1 (data size = %d): %f\n", data_size, time);
         free(send_data);
         free(recv_data);
     }
 
     data_size = 1;
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < num; i++) {
+        data_size *= 10;
+        send_data = (int*)malloc(sizeof(int) * data_size);
+        recv_data = (int*)malloc(sizeof(int) * data_size * world_size);
+        MPI_Barrier(MPI_COMM_WORLD);
+        time = -MPI_Wtime();
+        my_MPI_ALLGATHER2(send_data, data_size, MPI_INT, recv_data, data_size,
+                      MPI_INT, MPI_COMM_WORLD);
+        MPI_Barrier(MPI_COMM_WORLD);
+        time += MPI_Wtime();
+        if (world_rank == 0)
+            printf("My implementation 2 (data size = %d): %f\n", data_size, time);
+        free(send_data);
+        free(recv_data);
+    }
+
+    data_size = 1;
+    for (int i = 0; i < num; i++) {
         data_size *= 10;
         send_data = (int*)malloc(sizeof(int) * data_size);
         recv_data = (int*)malloc(sizeof(int) * data_size * world_size);
