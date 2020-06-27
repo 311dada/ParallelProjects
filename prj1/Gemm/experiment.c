@@ -127,10 +127,10 @@ int main(int argc, char** argv)
             read_matrix("B.txt", &B);
         }
         allocate_matrix(&C, N, 0);
+        start = MPI_Wtime();
     }
     
-    MPI_Barrier(MPI_COMM_WORLD);
-    start = MPI_Wtime();
+    // MPI_Barrier(MPI_COMM_WORLD);
 
 
     // Send tiles
@@ -201,14 +201,54 @@ int main(int argc, char** argv)
         
     }
 
+
     // Gather
-    MPI_Gatherv(&(local_C[0][0]), N*N/(p*p),  MPI_INT,
-                 &(C[0][0]), sendcounts, displs, subarrtype,
-                 0, MPI_COMM_WORLD);
+    MPI_Request request;
+    // MPI_Igatherv(&(local_C[0][0]), N*N/(p*p),  MPI_INT,
+    //              &(C[0][0]), sendcounts, displs, subarrtype,
+    //              0, MPI_COMM_WORLD, &request);
     
-    free_matrix(&local_A);
-    free_matrix(&local_B);
-    free_matrix(&local_C);
+    if (world_rank)
+    {
+        MPI_Isend(local_C[0], N * N / (p * p), MPI_INT, 0, 4, MPI_COMM_WORLD, &request);
+    }
+
+    else
+    {
+        for (int i = 0; i < N / p; i++)
+        {
+            for (int j = 0; j < N / p; j++)
+            {
+                C[i][j] = local_C[i][j];
+            }
+        }
+
+        int row;
+        int col;
+        int start_x;
+        int start_y;
+        for (int k = 1; k < world_size; k++)
+        {
+            MPI_Recv(local_C[0], N * N / (p * p), MPI_INT, k, 4, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            row = k / p;
+            col = k % p;
+            start_x = row * N / p;
+            start_y = col * N / p;
+
+            for (int i = start_x; i < start_x + N / p; i++)
+            {
+                for (int j = start_y; j < start_y + N / p; j++)
+                {
+                    C[i][j] = local_C[i - start_x][j - start_y];
+                }
+            }
+
+        } 
+    }
+
+    // free_matrix(&local_A);
+    // free_matrix(&local_B);
+    // free_matrix(&local_C);
 
     if (!world_rank)
     {
