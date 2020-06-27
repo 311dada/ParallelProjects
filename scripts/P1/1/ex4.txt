@@ -1,0 +1,23 @@
+rm -f allgather
+mpicc -o allgather experiment.c my_mpi_allgather.c
+My implementation 1 (data size = 10): 0.000017
+My implementation 1 (data size = 100): 0.001204
+My implementation 1 (data size = 1000): 0.000800
+My implementation 1 (data size = 10000): 0.000238
+My implementation 1 (data size = 100000): 0.001491
+My implementation 1 (data size = 1000000): 0.010342
+My implementation 1 (data size = 10000000): 0.112256
+My implementation 2 (data size = 10): 0.000011
+My implementation 2 (data size = 100): 0.000007
+My implementation 2 (data size = 1000): 0.000024
+My implementation 2 (data size = 10000): 0.000190
+My implementation 2 (data size = 100000): 0.002005
+My implementation 2 (data size = 1000000): 0.019452
+My implementation 2 (data size = 10000000): 0.194049
+MPI implementation (data size = 10): 0.000016
+MPI implementation (data size = 100): 0.000005
+MPI implementation (data size = 1000): 0.000018
+MPI implementation (data size = 10000): 0.000106
+MPI implementation (data size = 100000): 0.000900
+MPI implementation (data size = 1000000): 0.008998
+MPI implementation (data size = 10000000): 0.101580
