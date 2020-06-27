@@ -1,3 +1,5 @@
+all: mm conv pooling
+
 mm: matrix_gen.c mm.c experiment.c
 	mpicc -o mm experiment.c mm.c matrix_gen.c -lm
 
