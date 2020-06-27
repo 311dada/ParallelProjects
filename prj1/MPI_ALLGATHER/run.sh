@@ -4,6 +4,8 @@
 make clean
 make
 
+
+multiHosts=0
 while getopts "n:f:e:" arg 
 do
         case $arg in
@@ -12,6 +14,7 @@ do
                 ;;
              f)
                 f=$OPTARG
+                multiHosts=1
                 ;;
              e)
                 e=$OPTARG
@@ -24,4 +27,9 @@ do
 done
 
 
-mpiexec -n $n -f $f ./allgather $e
+if [ $multiHosts -eq 1 ]
+then
+   mpiexec -n $n -f $f ./allgather $e
+else
+   mpiexec -n $n ./allgather $e
+fi
