@@ -1,0 +1,48 @@
+====== Command ======
+./run.sh -n <processor number> -f <multiple hosts config file> -<mcpr> -M <matrix file> -K <kernel file>
+
+three choices:
+-m: matrix multiplication
+-c: convolution
+-p: max pooling
+
+-r: randomly initialize two matrices to multiply. We must initialize begore running matrix multiplication.
+-M: the matrix file to operate on
+-K: the kernel file
+
+====== Example ======
+1. matrix multiplication
+
+Assume we want to initialize first.
+
+./run.sh -m -n 4 -r
+----------------------------------------------------------------
+
+Assume we want to run on multiple hosts with /home/zhangsan/config after initialization.
+
+./run.sh -m -n 4 -f /home/zhangsan/config
+----------------------------------------------------------------
+
+2. convolution
+
+Assume we want to do convolution with kernel /home/zhangsan/kernel.txt on matrix /home/zhangsan/A.txt
+
+./run.sh -c -n 4 -M /home/zhangsan/A.txt -K /home/zhangsan/kernel.txt
+----------------------------------------------------------------
+
+Similarly, running on multiple hosts with /home/zhangsan/config
+
+./run.sh -c -n 4 -M /home/zhangsan/A.txt -K /home/zhangsan/kernel.txt -f /home/zhangsan/config
+----------------------------------------------------------------
+
+3. max pooling
+
+Assume we want to do max pooling on matrix /home/zhangsan/A.txt
+
+./run.sh -p -n 4 -M /home/zhangsan/A.txt
+----------------------------------------------------------------
+
+Similarly, running on multiple hosts with /home/zhangsan/config
+
+./run.sh -p -n 4 -M /home/zhangsan/A.txt -f /home/zhangsan/config
+

@@ -1,0 +1,25 @@
+====== Command ======
+./run.sh -n <processor number> -f <multiple hosts config file> -t <thread number> -e <page number>
+
+
+NOTE: If you want to run with multiple processes, you must run on multiple hosts. 
+
+
+-e: node number, used for initialization
+
+====== Example ======
+Assume we want to initialize a graph with 1024000 nodes.
+
+./run.sh -e 1024000
+----------------------------------------------------------------
+
+After the initialization, assume we run on a single host.
+
+./run.sh -t 8 
+----------------------------------------------------------------
+
+Assume we want to run on multiple hosts with /home/zhangsan/config.
+
+./run.sh -t 8 -n 4 -f /home/zhangsan/config
+----------------------------------------------------------------
+

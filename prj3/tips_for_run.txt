@@ -1,0 +1,11 @@
+====== Command ======
+./run.sh -j <hadoop streaming jar file> -i <input file> -o <output file>
+
+
+====== Example ======
+Assume we want to get the maximum and minimum temperature for London.
+
+./run.sh -j /home/dada/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar -i csv_data/London2013.csv -o London
+----------------------------------------------------------------
+
+

@@ -1,6 +1,0 @@
-language: r
-sudo: false
-cache: packages
-r_build_args: --no-build-vignettes --no-manual
-r_check_args: --no-build-vignettes --no-manual
-warnings_are_errors: false

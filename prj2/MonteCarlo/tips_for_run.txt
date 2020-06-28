@@ -1,0 +1,16 @@
+====== Command ======
+./run.sh -n <processor number> -f <multiple hosts config file> -t <thread number> -e <sample number>
+
+NOTE: If you want to run with multiple processes, you must run on multiple hosts.
+
+====== Example ======
+Assume we want to generate 1000000 points randomly to approximate pi on a single host with 8 threads.
+
+./run.sh -t 8 -e 1000000
+----------------------------------------------------------------
+
+Assume we want to run on multiple hosts with /home/zhangsan/config after initialization.
+
+./run.sh -t 8 -n 4 -f /home/zhangsan/config -e 1000000
+----------------------------------------------------------------
+

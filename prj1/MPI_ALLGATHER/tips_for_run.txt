@@ -1,0 +1,13 @@
+====== Command ======
+./run.sh -n <processor number> -f <multiple hosts config file> -e <the data size to test>
+
+====== Example ======
+Assume we want to run with 4 processors and use /home/zhangsan/config file. We want to benchmark the program with datasize ranging from 10 to 10^4. We run
+
+./run.sh -n 4 -f /home/zhangsan/config -e 4
+
+------------------------------------------------------------------
+If we do not want to run on multiple hosts, we run
+
+./run.sh -n 4 -e 4
+

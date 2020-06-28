@@ -1,0 +1,28 @@
+====== Command ======
+./run.sh -n <processor number> -f <multiple hosts config file> -<sbSB>
+
+four choices:
+-s: only count word number for small files
+-b: only count word number for big file
+-S: count word number and record word frequency for small files
+-B: count word number and record word frequency for big file
+
+====== Example ======
+1. only count word number for small files
+
+./run.sh -s -n 4
+----------------------------------------------------------------
+
+Assume we want to run on multiple hosts with /home/zhangsan/config after initialization.
+
+./run.sh -s -n 4 -f /home/zhangsan/config
+----------------------------------------------------------------
+
+2. count word number and record word frequency for big file
+
+./run.sh -B -n 4
+----------------------------------------------------------------
+
+Similarly, running on multiple hosts with /home/zhangsan/config
+
+./run.sh -B -n 4 -f /home/zhangsan/config
