@@ -30,7 +30,7 @@ int main(int argc, char** argv)
     }
 
     // Initialize the MPI environment
-    MPI_Init(NULL, NULL);
+    MPI_Init(&argc, &argv);
 
     int world_rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
@@ -47,7 +47,7 @@ int main(int argc, char** argv)
     int numThreadTosses;
 
     int    count = 0;  // The number of points in the circle
-    int    final_count;
+    int    final_count=0;
     double pi;
 
     double start, end;
@@ -64,7 +64,7 @@ int main(int argc, char** argv)
 		count = Toss(numThreadTosses);
     }
 
-    MPI_Reduce(&final_count, &count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&count, &final_count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
     MPI_Barrier(MPI_COMM_WORLD);
 	end = MPI_Wtime();
 
