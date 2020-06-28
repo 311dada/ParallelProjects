@@ -63,7 +63,7 @@ void count_words(char* filename, map_t map)
     in = fopen(filename, "r");
     char ch=' ';
     char pre=' ';
-    char temp;
+    int temp;
     int count=0;
     char *word;
     int index=0;
@@ -107,7 +107,7 @@ int main(int argc, char** argv)
 {
     struct dirent *de;
 
-    DIR *dr = opendir("./small_file");
+    DIR *dr = opendir("./test_file");
 
     char **files = NULL;
     int file_num = 0;
@@ -161,7 +161,7 @@ int main(int argc, char** argv)
             if (de->d_name[0] == '.')
                 continue;
             to_send = file_num % world_size;
-            filename = add_head(de->d_name, "small_file/");
+            filename = add_head(de->d_name, "test_file/");
             if (to_send)
             {
                 file_len = strlen(filename);

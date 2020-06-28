@@ -24,7 +24,7 @@ int get_file_size(char *filename)
 
 void adjust_offset(FILE *f, int *offset)
 {
-    char ch;
+    int ch;
     int little_offset = 0;
     while (1)
     {
@@ -145,7 +145,7 @@ int main(int argc, char **argv)
         printf("total words count: %d\n", global_count);
         printf("time: %f seconds\n", end - begin);
     }
-    
+
     MPI_Finalize();
     
     

@@ -31,7 +31,7 @@ int count_words(char* filename)
     in = fopen(filename, "r");
     char ch=' ';
     char pre=' ';
-    char temp;
+    int temp;
     int count=0;
 
     while((temp=fgetc(in)) != EOF)

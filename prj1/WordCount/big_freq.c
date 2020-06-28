@@ -24,7 +24,7 @@ int get_file_size(char *filename)
 
 void adjust_offset(FILE *f, int *offset)
 {
-    char ch;
+    int ch;
     int little_offset = 0;
     while (1)
     {
