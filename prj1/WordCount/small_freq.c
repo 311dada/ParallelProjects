@@ -29,16 +29,6 @@ int is_white_space(char ch)
 
 
 
-int get_index(char **words, char *word, int num)
-{
-    for (int i = 0; i < num; i++)
-    {
-        if (strcmp(words[i], word) == 0)
-            return i;
-    }
-    return -1;
-}
-
 void add_word(map_t map, char* word, int weight)
 {
     int *cnt;
@@ -107,7 +97,7 @@ int main(int argc, char** argv)
 {
     struct dirent *de;
 
-    DIR *dr = opendir("./test_file");
+    DIR *dr = opendir("./small_file");
 
     char **files = NULL;
     int file_num = 0;
@@ -161,7 +151,7 @@ int main(int argc, char** argv)
             if (de->d_name[0] == '.')
                 continue;
             to_send = file_num % world_size;
-            filename = add_head(de->d_name, "test_file/");
+            filename = add_head(de->d_name, "small_file/");
             if (to_send)
             {
                 file_len = strlen(filename);
@@ -270,7 +260,7 @@ int main(int argc, char** argv)
                     add_word(global_map, tok, atoi(fq));
                     tok = strtok(NULL, SEP);
                 }
-                free(word);
+                // free(word);
         }
         
     }
@@ -297,7 +287,7 @@ int main(int argc, char** argv)
         int sum = 0;
         for (int i = 0; i < global_num; i++)
         {
-            // printf("%s: %d\n", global_words[i], *(global_freq[i]));
+            printf("%s: %d\n", global_words[i], *(global_freq[i]));
             sum += *(global_freq[i]);
         }
         printf("==========================================================\nThere are %d words\n", sum);
